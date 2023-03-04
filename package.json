@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "guard-rails",
+  "workspaces": [
+    "dashboard",
+    "api"
+  ]
+}
