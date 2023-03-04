@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mysql-results-db:
+    image: mysql
+    ports:
+      - 3306:${MYSQL_PORT}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - mysql_results_volume:/var/lib/mysql
+      - ./api/init:/docker-entrypoint-initdb.d
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+volumes:
+  mysql_results_volume:
+    driver: local
