@@ -1,21 +1,50 @@
-version: "3"
+version: "3.8"
+networks:
+  app-tier:
+    driver: bridge
 services:
+  db:
+    image: mysql
+    ports:
+      - 3307:${MYSQL_PORT}
+    networks:
+      - app-tier
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      # MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_TIMEZONE: "+00:00"
+    volumes:
+      - mysql_results_volume:/var/lib/mysql
+      - ./api/init:/docker-entrypoint-initdb.d
+  # adminer:
+  #   image: adminer
+  #   restart: always
+  #   ports:
+  #     - 8080:8080
   api-server:
+    depends_on:
+      - db
     build:
       context: ./api
     ports:
-      - "3080:3080"
+      - "3001:3001"
     container_name: api-container
     volumes:
       - ./api:/usr/src/app/api
       - /usr/src/app/api/node_modules
-  dashboard:
-    build:
-      context: ./dashboard
-    ports:
-      - "3000:3000"
-    container_name: dashboard-container
-    stdin_open: true
-    volumes:
-      - ./dashboard:/usr/src/app/dashboard
-      - /usr/src/app/dashboard/node_modules
+  # dashboard:
+  #   build:
+  #     context: ./dashboard
+  #   ports:
+  #     - "3000:3000"
+  #   container_name: dashboard-container
+  #   stdin_open: true
+  #   volumes:
+  #     - ./dashboard:/usr/src/app/dashboard
+  #     - /usr/src/app/dashboard/node_modules
+volumes:
+  mysql_results_volume:
+    driver: local

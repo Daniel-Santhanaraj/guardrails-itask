@@ -4,8 +4,17 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Result } from './../entities/result.entity';
 import { ResultsService } from '../results.service';
-import { mockResultsRepository } from './mockresultsRepository';
+//import { mockResultsRepository } from './mockResultsRepository';
 import { resultsStub, resultStub } from './result.stub';
+
+export const mockResultsRepository = {
+  find: jest.fn().mockResolvedValue(resultsStub()),
+  findOneOrFail: jest.fn().mockResolvedValue(resultStub()),
+  findOneBy: jest.fn().mockResolvedValue(resultStub()),
+  create: jest.fn().mockResolvedValue(resultStub()),
+  save: jest.fn((product: Result) => product),
+  delete: jest.fn((id: number) => id),
+};
 
 describe('ResultsService', () => {
   let service: ResultsService;

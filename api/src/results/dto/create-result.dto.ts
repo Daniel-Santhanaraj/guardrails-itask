@@ -27,24 +27,27 @@ export class CreateResultDto {
   repositoryName: string;
 
   @ApiProperty()
-  findings: [
-    {
-      type: string;
-      ruleId: string;
-      location: {
-        path: string;
-        positions: {
-          begin: {
-            line: number;
-          };
-        };
-      };
-      metadata: {
-        description: string;
-        severity: string;
-      };
-    },
-  ];
+  findings: object;
+  // @IsNotEmpty()
+  // @ApiProperty()
+  // findings: [
+  //   {
+  //     type: string;
+  //     ruleId: string;
+  //     location: {
+  //       path: string;
+  //       positions: {
+  //         begin: {
+  //           line: number;
+  //         };
+  //       };
+  //     };
+  //     metadata: {
+  //       description: string;
+  //       severity: string;
+  //     };
+  //   },
+  // ];
   queuedAt: Date;
   scanningAt: Date;
   finishedAt: Date;

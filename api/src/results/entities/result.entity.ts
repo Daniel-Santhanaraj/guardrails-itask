@@ -16,27 +16,27 @@ export class Result {
   })
   repositoryName: string;
 
-  //   @Column('json', { nullable: true })
-  //   findings: JSON;
   @Column('json', { nullable: true })
-  findings: [
-    {
-      type: string;
-      ruleId: string;
-      location: {
-        path: string;
-        positions: {
-          begin: {
-            line: number;
-          };
-        };
-      };
-      metadata: {
-        description: string;
-        severity: string;
-      };
-    },
-  ];
+  findings: object;
+  // @Column('json', { nullable: true })
+  // findings: [
+  //   {
+  //     type: string;
+  //     ruleId: string;
+  //     location: {
+  //       path: string;
+  //       positions: {
+  //         begin: {
+  //           line: number;
+  //         };
+  //       };
+  //     };
+  //     metadata: {
+  //       description: string;
+  //       severity: string;
+  //     };
+  //   },
+  // ];
 
   @Column({
     nullable: false,
