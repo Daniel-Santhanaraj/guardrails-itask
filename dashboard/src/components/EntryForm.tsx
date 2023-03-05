@@ -60,7 +60,6 @@ const EntryForm: React.FC<IEntryFormProps> = (props) => {
     const addFinding = [...result.findings, staticData];
     let addItems = result;
     addItems.findings = addFinding;
-    console.log(addItems);
     setResult(addItems);
   };
 
@@ -70,11 +69,21 @@ const EntryForm: React.FC<IEntryFormProps> = (props) => {
     });
   };
 
-  const handleinputchange = ({ name, value }: any) => {
+  const handleInputChangeDropDown = (
+    e: React.FormEvent<HTMLInputElement>,
+    { name, value }: any
+  ) => {
+    setResult({ ...result, [name]: value });
+  };
+
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
+    const { name, value } = e.target as HTMLInputElement;
     setResult({ ...result, [name]: value });
   };
 
   const saveData = () => {
+    console.log(result);
+    return false;
     axios({
       method: "post",
       url: "http://localhost:3001/results",
@@ -107,7 +116,7 @@ const EntryForm: React.FC<IEntryFormProps> = (props) => {
               placeholder="Repository Name"
               value={result.repositoryName}
               name="repositoryName"
-              onChange={handleinputchange}
+              onChange={handleInputChange}
             />
             <Form.Field
               required
@@ -118,7 +127,7 @@ const EntryForm: React.FC<IEntryFormProps> = (props) => {
               placeholder="Status"
               value={result.status}
               name="status"
-              onChange={handleinputchange}
+              onChange={handleInputChangeDropDown}
             />
           </Form.Group>
           <Divider hidden />

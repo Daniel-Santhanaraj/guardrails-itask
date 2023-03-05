@@ -4,7 +4,7 @@ export interface IMetaData {
 }
 
 export interface IBegin {
-  line: number;
+  line: number | string;
 }
 export interface IPositions {
   begin: IBegin;
