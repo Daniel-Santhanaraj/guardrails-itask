@@ -3,12 +3,12 @@ services:
   mysql-results-db:
     image: mysql
     ports:
-      - 3307:${MYSQL_PORT}
+      - 3306:${MYSQL_PORT}
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      #MYSQL_ALLOW_EMPTY_PASSWORD: true
       MYSQL_DATABASE: ${MYSQL_DATABASE}
-      # MYSQL_USER: ${MYSQL_USER}
+      MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_TIMEZONE: '+00:00'
     volumes:
